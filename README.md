@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <div align="center">
+=======
+ <div align="center">
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 <img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
 </div>
 

@@ -111,12 +111,18 @@ import com.example.data.CategoryLimitConfig
 import com.example.data.CurrencyFormatOption
 import com.example.data.EmergencyFundConfig
 import com.example.data.GenZQuotesDatabase
+<<<<<<< HEAD
 import com.example.data.MandatoryBillItem
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 import com.example.data.PresetCategories
 import com.example.data.QuickCategoryItem
 import com.example.data.SavingsGoal
 import com.example.data.TransactionRecord
+<<<<<<< HEAD
 import com.example.data.UserFinancialProfile
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 import com.example.data.Wallet
 import com.example.ui.theme.CoralExpense
 import com.example.ui.theme.EmeraldPrimary
@@ -149,17 +155,26 @@ fun BerandaExpenseDashboard(
     transactions: List<TransactionRecord>,
     goals: List<SavingsGoal> = emptyList(),
     isSubmitting: Boolean,
+<<<<<<< HEAD
+=======
+    isSignedIn: Boolean = false,
+    onOpenSignInSheet: () -> Unit = {},
+    onSignOut: () -> Unit = {},
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     guruState: GuruAdviceState = GuruAdviceState.Idle,
     sessionSeed: Int = 1,
     onRefreshBestieAnalysis: () -> Unit = {},
     categoryLimits: Map<String, CategoryLimitConfig> = PresetCategories.defaultCategoryLimits,
     onUpdateCategoryLimit: (categoryKey: String, categoryLabel: String, limitAmount: Long, period: String) -> Unit = { _, _, _, _ -> },
+<<<<<<< HEAD
     mandatoryBills: List<MandatoryBillItem> = PresetCategories.defaultMandatoryBills,
     onUpdateMandatoryBillStatus: (bill: MandatoryBillItem, newStatus: String, wallet: Wallet?) -> Unit = { _, _, _ -> },
     onUpsertMandatoryBill: (billId: String?, name: String, totalAmount: Long, dueScheduleLabel: String, dueDay: Int, renewalDay: Int?, billType: String) -> Unit = { _, _, _, _, _, _, _ -> },
     onDeleteMandatoryBill: (String) -> Unit = {},
     userProfile: UserFinancialProfile = UserFinancialProfile(),
     onOpenFinancialProfileWizard: () -> Unit = {},
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     emergencyFund: EmergencyFundConfig = EmergencyFundConfig(),
     onUpdateEmergencyFund: (sourceWallet: Wallet?, addedAmount: Long, newLimit: Long, period: String, storageNote: String) -> Unit = { _, _, _, _, _ -> },
     onAddGoal: (title: String, targetAmount: Long, dailyRec: Long, note: String, iconKey: String) -> Unit = { _, _, _, _, _ -> },
@@ -204,8 +219,11 @@ fun BerandaExpenseDashboard(
     var selectedCategory by remember { mutableStateOf(PresetCategories.expenseGrid3x3.first()) }
     var editingLimitCategory by remember { mutableStateOf<QuickCategoryItem?>(null) }
     var showEmergencyDialog by remember { mutableStateOf(false) }
+<<<<<<< HEAD
     var showBillEditorDialog by remember { mutableStateOf(false) }
     var editingBillItem by remember { mutableStateOf<MandatoryBillItem?>(null) }
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     var activeDepositGoal by remember { mutableStateOf<SavingsGoal?>(null) }
     var showCreateTargetDialog by remember { mutableStateOf(false) }
     var selectedGoalId by remember(goals) { mutableStateOf(goals.firstOrNull()?.id ?: "") }
@@ -434,6 +452,7 @@ fun BerandaExpenseDashboard(
                     }
                 }
 
+<<<<<<< HEAD
                 // Tombol Profil Keuangan (Sesuaikan Gaji, Tagihan & Limit)
                 Surface(
                     onClick = onOpenFinancialProfileWizard,
@@ -462,6 +481,8 @@ fun BerandaExpenseDashboard(
                     }
                 }
 
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 // Tombol Pengaturan (Settings Button)
                 Surface(
                     onClick = onOpenSettings,
@@ -482,10 +503,50 @@ fun BerandaExpenseDashboard(
                         )
                     }
                 }
+<<<<<<< HEAD
             }
         }
 
         // 1. AREA 1: KOTAK TOTAL SALDO (Tanpa Teks 'Uang Bebas Pakai (Aman Buat Harian)' — Bersih & Fokus)
+=======
+
+                // Sign In / Sign Out
+                if (!isSignedIn) {
+                    Surface(
+                        onClick = onOpenSignInSheet,
+                        shape = RoundedCornerShape(8.dp),
+                        color = EmeraldPrimary,
+                        modifier = Modifier.testTag("open_signin_sheet_button")
+                    ) {
+                        Text(
+                            text = AppLocalization.get("btn_signin", lang),
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp)
+                        )
+                    }
+                } else {
+                    Surface(
+                        onClick = onSignOut,
+                        shape = RoundedCornerShape(8.dp),
+                        color = MaterialTheme.colorScheme.surface,
+                        border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)),
+                        modifier = Modifier.testTag("top_signout_chip")
+                    ) {
+                        Text(
+                            text = AppLocalization.get("btn_signout", lang),
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.5.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 4.dp)
+                        )
+                    }
+                }
+            }
+        }
+
+        // 1. AREA 1: KOTAK TOTAL SALDO (Hanya Indikator Garis Warna + Saldo Siap Pakai Luas + Total Utuh + Tombol Grafik + Micro Limit Darurat)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         val emLimit = emergencyFund.emergencyLimit
         val emRatio = if (emLimit > 0L) (emergencySpent.toFloat() / emLimit.toFloat()) else 0f
         val emStatusColor = when {
@@ -517,7 +578,11 @@ fun BerandaExpenseDashboard(
                     .padding(horizontal = 14.dp, vertical = 10.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
+<<<<<<< HEAD
                 // INDIKATOR SIMBOL GARIS WARNA AREA 1 (Kotak Total Saldo)
+=======
+                // INDIKATOR SIMBOL GARIS WARNA AREA 1 (Kotak Total Saldo - Tanpa Teks Analisis)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -565,15 +630,23 @@ fun BerandaExpenseDashboard(
                                 horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
                                 Text(
+<<<<<<< HEAD
                                     text = formatMoneyDisplay(totalBalance),
                                     style = MaterialTheme.typography.headlineSmall,
                                     color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.ExtraBold
+=======
+                                    text = AppLocalization.get("free_to_use_money", lang),
+                                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.5.sp),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    letterSpacing = 0.2.sp
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                                 )
                                 Icon(
                                     imageVector = Icons.Default.ExpandMore,
                                     contentDescription = AppLocalization.get("see_all_wallet_details", lang),
                                     tint = EmeraldPrimary,
+<<<<<<< HEAD
                                     modifier = Modifier.size(16.dp)
                                 )
                                 FeatureHelpButton(
@@ -584,6 +657,18 @@ fun BerandaExpenseDashboard(
                                 )
                             }
                             Text(
+=======
+                                    modifier = Modifier.size(13.dp)
+                                )
+                            }
+                            Text(
+                                text = formatMoneyDisplay(totalBalance),
+                                style = MaterialTheme.typography.headlineSmall,
+                                color = MaterialTheme.colorScheme.onSurface,
+                                fontWeight = FontWeight.ExtraBold
+                            )
+                            Text(
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                                 text = String.format(
                                     Locale("in", "ID"),
                                     AppLocalization.get("total_wallet_money", lang),
@@ -678,12 +763,15 @@ fun BerandaExpenseDashboard(
                                         modifier = Modifier.padding(horizontal = 3.5.dp, vertical = 0.5.dp)
                                     )
                                 }
+<<<<<<< HEAD
                                 FeatureHelpButton(
                                     content = FeatureHelpDatabase.POS_DARURAT,
                                     iconSize = 11,
                                     tint = GoldAccent,
                                     testTag = "help_pos_darurat_button"
                                 )
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                             }
 
                             Text(
@@ -813,6 +901,7 @@ fun BerandaExpenseDashboard(
             }
 
             // Sisi Kanan: TOMBOL BULAT CELENGAN / TABUNGAN TARGET (Ultra-Minimalis, Jelas Terlihat & Estetik)
+<<<<<<< HEAD
             Box(contentAlignment = Alignment.TopEnd) {
                 TabunganTargetRoundButton(
                     activeGoal = activeGoal,
@@ -833,6 +922,19 @@ fun BerandaExpenseDashboard(
                     modifier = Modifier.padding(top = 2.dp, end = 2.dp)
                 )
             }
+=======
+            TabunganTargetRoundButton(
+                activeGoal = activeGoal,
+                progress = goalProgress,
+                percent = goalPct,
+                isSelected = showTargetSummary,
+                lang = lang,
+                onClick = {
+                    showTargetSummary = !showTargetSummary
+                    if (showTargetSummary) showGraphSummary = false
+                }
+            )
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         }
 
         AnimatedVisibility(visible = showGraphSummary) {
@@ -909,6 +1011,7 @@ fun BerandaExpenseDashboard(
                         .testTag("nominal_color_line_indicator")
                 )
 
+<<<<<<< HEAD
                 // Built-in Mode Switcher (Pengeluaran vs Pemasukan) directly inside the recording box + Panduan Simbol Melayang
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -997,6 +1100,82 @@ fun BerandaExpenseDashboard(
                         tint = activeAccent,
                         testTag = "help_input_nominal_button"
                     )
+=======
+                // Built-in Mode Switcher (Pengeluaran vs Pemasukan) directly inside the recording box
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f))
+                        .padding(4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Surface(
+                        onClick = {
+                            if (isIncomeMode) {
+                                selectedCategory = PresetCategories.expenseGrid3x3.first()
+                            }
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        color = if (!isIncomeMode) CoralExpense else Color.Transparent,
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("mode_switch_expense")
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.TrendingDown,
+                                contentDescription = null,
+                                tint = if (!isIncomeMode) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = AppLocalization.get("expense_mode", lang),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = if (!isIncomeMode) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+
+                    Surface(
+                        onClick = {
+                            if (!isIncomeMode) {
+                                selectedCategory = PresetCategories.incomeQuickPills.first()
+                            }
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        color = if (isIncomeMode) EmeraldPrimary else Color.Transparent,
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("mode_switch_income")
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.TrendingUp,
+                                contentDescription = null,
+                                tint = if (isIncomeMode) Color(0xFF042619) else MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = AppLocalization.get("income_mode", lang),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = if (isIncomeMode) Color(0xFF042619) else MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 }
 
                 // Inline Category Selector inside the recording box
@@ -1062,6 +1241,7 @@ fun BerandaExpenseDashboard(
                                             color = if (isSelectedCat) activeAccent else MaterialTheme.colorScheme.onSurface,
                                             fontWeight = FontWeight.Bold
                                         )
+<<<<<<< HEAD
                                         if (catItem.subtitle.isNotBlank()) {
                                             Text(
                                                 text = catItem.subtitle,
@@ -1069,12 +1249,20 @@ fun BerandaExpenseDashboard(
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                                             )
                                         }
+=======
+                                        Text(
+                                            text = catItem.subtitle,
+                                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                                     }
                                 }
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     // PINTASAN KEHIDUPAN SEHARI-HARI (REAL-LIFE FLEXIBLE QUICK ITEMS: Bensin, Rokok, Makan, Kuota, Skincare, dll - Tanpa Jadwal Jam Kaku)
                     if (!isIncomeMode && !isEmergencyExpenseSelected && selectedCategory.key != "tagihan_bulanan") {
                         val quickItems = remember(selectedCategory.key, userProfile.gender) {
@@ -1083,11 +1271,16 @@ fun BerandaExpenseDashboard(
                                     (item.genderFilter == "ALL" || item.genderFilter == userProfile.gender)
                             }
                         }
+=======
+                    // Active Category Limit Line Indicator Banner (Simbol Garis Warna Saja, Tanpa Kalimat Teks Analisis)
+                    if (!isIncomeMode && !isEmergencyExpenseSelected) {
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                         val activeLimitCfg = categoryLimits[selectedCategory.key] ?: CategoryLimitConfig(
                             categoryKey = selectedCategory.key,
                             limitAmount = selectedCategory.defaultLimitAmount,
                             period = selectedCategory.defaultLimitPeriod
                         )
+<<<<<<< HEAD
                         val spentInPeriod = remember(transactions, mandatoryBills, selectedCategory.key, activeLimitCfg.period) {
                             ArusKasViewModel.calculateSpentForCategoryLimit(
                                 categoryKey = selectedCategory.key,
@@ -1107,6 +1300,43 @@ fun BerandaExpenseDashboard(
 
                         if (quickItems.isNotEmpty()) {
                             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+=======
+                        val spentInPeriod = remember(transactions, selectedCategory.key, activeLimitCfg.period) {
+                            ArusKasViewModel.calculateSpentForCategoryLimit(
+                                categoryKey = selectedCategory.key,
+                                period = activeLimitCfg.period,
+                                transactions = transactions
+                            )
+                        }
+                        val limitAmt = activeLimitCfg.limitAmount
+                        val usageRatio = if (limitAmt > 0L) (spentInPeriod.toFloat() / limitAmt.toFloat()) else 0f
+                        val statusColor = when {
+                            limitAmt <= 0L -> SkyBlue
+                            usageRatio >= 1f -> CoralExpense
+                            usageRatio >= 0.75f -> GoldAccent
+                            else -> EmeraldPrimary
+                        }
+                        val statusLabel = when {
+                            limitAmt <= 0L -> "TANPA LIMIT"
+                            usageRatio >= 1f -> "OVER ${(usageRatio * 100).toInt()}%"
+                            usageRatio >= 0.75f -> "AWAS ${(usageRatio * 100).toInt()}%"
+                            else -> "AMAN ${(usageRatio * 100).toInt()}%"
+                        }
+
+                        Surface(
+                            onClick = { editingLimitCategory = selectedCategory },
+                            shape = RoundedCornerShape(10.dp),
+                            color = statusColor.copy(alpha = 0.08f),
+                            border = BorderStroke(0.8.dp, statusColor.copy(alpha = 0.4f)),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .testTag("active_category_limit_banner")
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                                verticalArrangement = Arrangement.spacedBy(3.dp)
+                            ) {
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -1114,6 +1344,7 @@ fun BerandaExpenseDashboard(
                                 ) {
                                     Row(
                                         verticalAlignment = Alignment.CenterVertically,
+<<<<<<< HEAD
                                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                                     ) {
                                         Text(
@@ -1134,10 +1365,54 @@ fun BerandaExpenseDashboard(
                                             text = "Sisa Kuota: ${ArusKasViewModel.formatCompactRupiah(remainingPool)} (~${ArusKasViewModel.formatCompactRupiah(adaptiveDailyAllowance)}/hr)",
                                             style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.5.sp),
                                             color = EmeraldPrimary,
+=======
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        // Indikator Simbol Garis Warna
+                                        Box(
+                                            modifier = Modifier
+                                                .width(14.dp)
+                                                .height(3.5.dp)
+                                                .clip(RoundedCornerShape(50))
+                                                .background(statusColor)
+                                        )
+                                        Text(
+                                            text = statusLabel,
+                                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.8.sp),
+                                            color = statusColor,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Text(
+                                            text = if (limitAmt > 0L) {
+                                                "• ${ArusKasViewModel.formatCompactRupiah(spentInPeriod)} / ${ArusKasViewModel.formatCompactRupiah(limitAmt)} (${ArusKasViewModel.periodDisplayLabel(activeLimitCfg.period)})"
+                                            } else {
+                                                "• Terpakai: ${ArusKasViewModel.formatCompactRupiah(spentInPeriod)}"
+                                            },
+                                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.8.sp),
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
+
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(3.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Tune,
+                                            contentDescription = "Atur Limit Kategori",
+                                            tint = statusColor,
+                                            modifier = Modifier.size(12.dp)
+                                        )
+                                        Text(
+                                            text = "Limit",
+                                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.8.sp),
+                                            color = statusColor,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                                             fontWeight = FontWeight.Bold
                                         )
                                     }
                                 }
+<<<<<<< HEAD
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -1179,6 +1454,19 @@ fun BerandaExpenseDashboard(
                                             }
                                         }
                                     }
+=======
+
+                                if (limitAmt > 0L) {
+                                    LinearProgressIndicator(
+                                        progress = { usageRatio.coerceIn(0f, 1f) },
+                                        color = statusColor,
+                                        trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(3.dp)
+                                            .clip(RoundedCornerShape(50))
+                                    )
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                                 }
                             }
                         }
@@ -1207,7 +1495,10 @@ fun BerandaExpenseDashboard(
                             fontWeight = FontWeight.Bold
                         )
                     },
+<<<<<<< HEAD
                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     textStyle = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -1371,7 +1662,57 @@ fun BerandaExpenseDashboard(
             }
         }
 
+<<<<<<< HEAD
         // 4. AREA 3: 6 KOTAK KATEGORI PENGELUARAN (Judul Kecil + Bar Batas Limit & Bar Limit Terpakai + Simbol Panduan)
+=======
+        // SATU-SATUNYA KOTAK PERSEGI PANJANG ANALISIS KATA (DI LUAR & DI BAWAH KOTAK MASUKAN NOMINAL - Bahasa Gaul Gen Z Sehari-hari)
+        Surface(
+            onClick = onRefreshBestieAnalysis,
+            shape = RoundedCornerShape(12.dp),
+            color = nominalIndicatorLineColor.copy(alpha = 0.1f),
+            border = BorderStroke(0.9.dp, nominalIndicatorLineColor.copy(alpha = 0.45f)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("bestie_analysis_rectangle_box")
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                // Simbol Garis Warna Vertikal di Kiri Kotak Analisis
+                Box(
+                    modifier = Modifier
+                        .width(4.dp)
+                        .height(34.dp)
+                        .clip(RoundedCornerShape(50))
+                        .background(nominalIndicatorLineColor)
+                )
+
+                Text(
+                    text = singleAnalysisMessage,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontSize = 10.2.sp,
+                        lineHeight = 13.8.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(1f)
+                )
+
+                Text(
+                    text = "🔄",
+                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
+                    color = nominalIndicatorLineColor,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+
+        // 4. AREA 3: 6 KATEGORI PENGELUARAN & PEMASUKAN (Hanya Indikator Simbol Garis Warna, Tanpa Teks Analisis Tambahan)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -1382,6 +1723,7 @@ fun BerandaExpenseDashboard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
+<<<<<<< HEAD
                     Text(
                         text = "Pos Pengeluaran & Plafon Limit",
                         style = MaterialTheme.typography.labelMedium,
@@ -1393,6 +1735,48 @@ fun BerandaExpenseDashboard(
                         iconSize = 12,
                         tint = EmeraldPrimary,
                         testTag = "help_category_limits_button"
+=======
+                    // INDIKATOR SIMBOL GARIS WARNA AREA 3 (Kategori Pengeluaran & Pemasukan)
+                    Box(
+                        modifier = Modifier
+                            .width(18.dp)
+                            .height(3.5.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(genZAnalysis.categoryLineColor)
+                            .testTag("category_color_line_indicator")
+                    )
+                    Text(
+                        text = "JATAH & REM PENGELUARAN",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        letterSpacing = 0.4.sp
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(10.dp)
+                            .height(3.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(EmeraldPrimary)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .width(10.dp)
+                            .height(3.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(GoldAccent)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .width(10.dp)
+                            .height(3.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(CoralExpense)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     )
                 }
             }
@@ -1405,11 +1789,16 @@ fun BerandaExpenseDashboard(
                 ) {
                     rowItems.forEach { item ->
                         val isSelected = selectedCategory.key == item.key
+<<<<<<< HEAD
                         val rawLimitCfg = categoryLimits[item.key] ?: CategoryLimitConfig(
+=======
+                        val limitCfg = categoryLimits[item.key] ?: CategoryLimitConfig(
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                             categoryKey = item.key,
                             limitAmount = item.defaultLimitAmount,
                             period = item.defaultLimitPeriod
                         )
+<<<<<<< HEAD
                         val effectiveLimitAmt = if (item.key == "tagihan_bulanan" && mandatoryBills.isNotEmpty()) {
                             maxOf(rawLimitCfg.limitAmount, mandatoryBills.sumOf { it.totalAmount })
                         } else {
@@ -1422,6 +1811,13 @@ fun BerandaExpenseDashboard(
                                 period = limitCfg.period,
                                 transactions = transactions,
                                 mandatoryBills = mandatoryBills
+=======
+                        val spent = remember(transactions, item.key, limitCfg.period) {
+                            ArusKasViewModel.calculateSpentForCategoryLimit(
+                                categoryKey = item.key,
+                                period = limitCfg.period,
+                                transactions = transactions
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                             )
                         }
                         Expense3x3Tile(
@@ -1438,6 +1834,7 @@ fun BerandaExpenseDashboard(
             }
         }
 
+<<<<<<< HEAD
         // 4B. CEKLIST TAGIHAN WAJIB & SIKLUS JATUH TEMPO (Kosan Tgl 1, Kuota Habis & Beli Lagi, Listrik, Cicilan - Bisa Ceklist Belum / Setengah / Lunas)
         val currentSelectedWallet = wallets.find { it.id == selectedWalletId } ?: wallets.firstOrNull()
         MandatoryBillsChecklistSection(
@@ -1461,6 +1858,20 @@ fun BerandaExpenseDashboard(
 
         // 5. COMPACT & MINIMALIST INCOME ROW (Tanpa Kata/Pill Tambahan di Bawah Uang Masuk + Simbol Panduan Melayang)
         val netCashflowMonth = monthIncome - monthExpense
+=======
+        // 5. COMPACT & MINIMALIST INCOME ROW (Logika Murni Menampilkan Masuknya Uang Saja, UI/UX & Size Dipertahankan)
+        val netCashflowMonth = monthIncome - monthExpense
+        val latestIncomeTx = remember(transactions) {
+            transactions.firstOrNull { it.type == "INCOME" }
+        }
+        val topIncomeWalletEntry = remember(monthIncomeTransactions) {
+            monthIncomeTransactions
+                .groupBy { it.walletName.ifBlank { "Dompet" } }
+                .mapValues { entry -> entry.value.sumOf { it.amount } }
+                .maxByOrNull { it.value }
+        }
+        val recommendedSave20Pct = (monthIncome * 20L) / 100L
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         val incomeLineColor = when {
             monthIncome <= 0L -> GoldAccent
             netCashflowMonth >= 0L -> EmeraldPrimary
@@ -1501,6 +1912,7 @@ fun BerandaExpenseDashboard(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+<<<<<<< HEAD
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -1535,6 +1947,173 @@ fun BerandaExpenseDashboard(
         // 6. RECENT CASH FLOW LOG (Tanpa Judul Kata di Bawah Uang Masuk)
         if (transactions.isNotEmpty()) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+=======
+                    Text(
+                        text = if (todayIncome > 0L) {
+                            "UANG MASUK • HARI INI: +${ArusKasViewModel.formatCompactRupiah(todayIncome)}"
+                        } else {
+                            "MONITOR UANG MASUK (${monthIncomeTransactions.size}x Masuk)"
+                        },
+                        style = MaterialTheme.typography.labelSmall,
+                        color = EmeraldPrimary,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Bulan ini: +${ArusKasViewModel.formatCompactRupiah(monthIncome)} (${if (netCashflowMonth >= 0L) "Surplus" else "Defisit"} ${ArusKasViewModel.formatCompactRupiah(kotlin.math.abs(netCashflowMonth))})",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (netCashflowMonth >= 0L) EmeraldPrimary else GoldAccent
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    // Rincian masuknya uang per sumber pemasukan (Gaji Utama, Ngojek Online, Untung Usaha, Rejeki/Transfer)
+                    PresetCategories.incomeQuickPills.forEach { inc ->
+                        val sourceTxs = remember(monthIncomeTransactions, inc.key) {
+                            monthIncomeTransactions.filter { it.categoryKey == inc.key }
+                        }
+                        val sourceSum = remember(sourceTxs) { sourceTxs.sumOf { it.amount } }
+                        val sourceCount = sourceTxs.size
+                        val sharePct = if (monthIncome > 0L) ((sourceSum * 100L) / monthIncome).toInt() else 0
+                        val hasIncome = sourceSum > 0L
+
+                        Surface(
+                            onClick = { inspectingIncomeCategoryKey = inc.key },
+                            shape = RoundedCornerShape(50),
+                            color = if (hasIncome) EmeraldPrimary.copy(alpha = 0.16f) else MaterialTheme.colorScheme.surface,
+                            border = BorderStroke(
+                                1.dp,
+                                if (hasIncome) EmeraldPrimary.copy(alpha = 0.7f) else EmeraldPrimary.copy(alpha = 0.35f)
+                            )
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.TrendingUp,
+                                    contentDescription = null,
+                                    tint = if (hasIncome) EmeraldPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Text(
+                                    text = if (hasIncome) {
+                                        "${inc.label}: +${ArusKasViewModel.formatCompactRupiah(sourceSum)} ($sharePct% • ${sourceCount}x)"
+                                    } else {
+                                        "${inc.label}: Rp 0"
+                                    },
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = if (hasIncome) EmeraldPrimary else MaterialTheme.colorScheme.onSurface,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                    }
+
+                    // Tambahan info penting 1: Transaksi Uang Masuk Terakhir & Masuk ke Dompet Mana
+                    if (latestIncomeTx != null) {
+                        Surface(
+                            onClick = { inspectingIncomeCategoryKey = "ALL" },
+                            shape = RoundedCornerShape(50),
+                            color = MaterialTheme.colorScheme.surface,
+                            border = BorderStroke(1.dp, SkyBlue.copy(alpha = 0.55f))
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.AccountBalanceWallet,
+                                    contentDescription = null,
+                                    tint = SkyBlue,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Text(
+                                    text = "Terakhir: +${ArusKasViewModel.formatCompactRupiah(latestIncomeTx.amount)} ke ${latestIncomeTx.walletName}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = SkyBlue,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                    }
+
+                    // Tambahan info penting 2: Dompet Penerima Uang Masuk Terbesar Bulan Ini
+                    if (topIncomeWalletEntry != null && topIncomeWalletEntry.value > 0L) {
+                        Surface(
+                            onClick = { inspectingIncomeCategoryKey = "ALL" },
+                            shape = RoundedCornerShape(50),
+                            color = MaterialTheme.colorScheme.surface,
+                            border = BorderStroke(1.dp, EmeraldPrimary.copy(alpha = 0.45f))
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.AccountBalance,
+                                    contentDescription = null,
+                                    tint = EmeraldPrimary,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Text(
+                                    text = "Dompet Utama: ${topIncomeWalletEntry.key} (+${ArusKasViewModel.formatCompactRupiah(topIncomeWalletEntry.value)})",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                    }
+
+                    // Tambahan info penting 3: Rekomendasi Jatah Tabung 20% dari Uang Masuk Bulan Ini
+                    if (recommendedSave20Pct > 0L) {
+                        Surface(
+                            onClick = { inspectingIncomeCategoryKey = "ALL" },
+                            shape = RoundedCornerShape(50),
+                            color = MaterialTheme.colorScheme.surface,
+                            border = BorderStroke(1.dp, GoldAccent.copy(alpha = 0.55f))
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Savings,
+                                    contentDescription = null,
+                                    tint = GoldAccent,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Text(
+                                    text = "Ideal Disisihkan (20%): ${ArusKasViewModel.formatCompactRupiah(recommendedSave20Pct)}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = GoldAccent,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // 6. RECENT CASH FLOW LOG (Pantau keluar masuknya mengalir kemana aja)
+        if (transactions.isNotEmpty()) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    text = "ALIRAN DUIT TERBARU (KELUAR & MASUK)",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 transactions.take(6).forEach { tx ->
                     TransactionRowCard(
                         tx = tx,
@@ -1545,6 +2124,7 @@ fun BerandaExpenseDashboard(
         }
     }
 
+<<<<<<< HEAD
     if (showBillEditorDialog) {
         MandatoryBillEditorDialog(
             initialBill = editingBillItem,
@@ -1560,6 +2140,8 @@ fun BerandaExpenseDashboard(
         )
     }
 
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     if (inspectingIncomeCategoryKey != null) {
         val filterKey = inspectingIncomeCategoryKey!!
         IncomeHistoryDetailDialog(
@@ -1958,7 +2540,10 @@ fun TabunganTargetDepositDialog(
                     onValueChange = { amountStr = it.filter { c -> c.isDigit() } },
                     label = { Text("Nominal Setor Tabungan (Rp)") },
                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
+<<<<<<< HEAD
                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier
@@ -2042,7 +2627,10 @@ fun TabunganTargetCreateDialog(
                     onValueChange = { targetStr = it.filter { c -> c.isDigit() } },
                     label = { Text("Target Nominal (Rp)") },
                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
+<<<<<<< HEAD
                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
@@ -2052,7 +2640,10 @@ fun TabunganTargetCreateDialog(
                     onValueChange = { dailyStr = it.filter { c -> c.isDigit() } },
                     label = { Text("Target Setoran per Hari (Rp)") },
                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
+<<<<<<< HEAD
                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
@@ -2180,7 +2771,10 @@ fun EmergencyFundDialog(
                     label = { Text("Nominal Tambah Saldo Darurat (Rp)") },
                     placeholder = { Text("Kosongkan jika hanya ubah limit") },
                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
+<<<<<<< HEAD
                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier
@@ -2255,7 +2849,10 @@ fun EmergencyFundDialog(
                     onValueChange = { input -> limitStr = input.filter { it.isDigit() } },
                     label = { Text("Target Limit Pengeluaran Darurat (Rp)") },
                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
+<<<<<<< HEAD
                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier
@@ -2301,23 +2898,35 @@ private fun Expense3x3Tile(
 ) {
     val limitAmt = limitConfig.limitAmount
     val ratio = if (limitAmt > 0L) (spentAmount.toFloat() / limitAmt.toFloat()) else 0f
+<<<<<<< HEAD
     val pctUsed = (ratio * 100f).toInt().coerceAtLeast(0)
     val remainingAmt = (limitAmt - spentAmount).coerceAtLeast(0L)
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     val statusColor = when {
         limitAmt <= 0L -> SkyBlue
         ratio >= 1f -> CoralExpense
         ratio >= 0.75f -> GoldAccent
         else -> EmeraldPrimary
     }
+<<<<<<< HEAD
     val shortPeriod = when (limitConfig.period) {
         "HARIAN" -> "/hr"
         "MINGGUAN" -> "/mgg"
         "BULANAN" -> "/bln"
         else -> ""
+=======
+    val statusBadgeText = when {
+        limitAmt <= 0L -> "BEBAS"
+        ratio >= 1f -> "OVER!"
+        ratio >= 0.75f -> "AWAS"
+        else -> "AMAN"
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     }
 
     Surface(
         onClick = onClick,
+<<<<<<< HEAD
         shape = RoundedCornerShape(13.dp),
         color = if (isSelected) statusColor.copy(alpha = 0.14f) else MaterialTheme.colorScheme.surface,
         border = BorderStroke(
@@ -2326,21 +2935,39 @@ private fun Expense3x3Tile(
         ),
         modifier = modifier
             .height(108.dp)
+=======
+        shape = RoundedCornerShape(14.dp),
+        color = if (isSelected) statusColor.copy(alpha = 0.16f) else MaterialTheme.colorScheme.surface,
+        border = BorderStroke(
+            width = if (isSelected) 1.6.dp else 1.dp,
+            color = if (isSelected) statusColor else MaterialTheme.colorScheme.outline.copy(alpha = 0.7f)
+        ),
+        modifier = modifier
+            .height(106.dp)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             .testTag("category_tile_${item.key}")
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+<<<<<<< HEAD
                 .padding(horizontal = 7.dp, vertical = 6.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start
         ) {
             // Header: Judul Kotak Kecil + Tombol Edit Limit
+=======
+                .padding(horizontal = 8.dp, vertical = 7.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.Start
+        ) {
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+<<<<<<< HEAD
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(3.dp),
@@ -2454,15 +3081,85 @@ private fun Expense3x3Tile(
                     progress = {
                         if (limitAmt > 0L) ratio.coerceIn(0f, 1f) else if (spentAmount > 0L) 0.35f else 0f
                     },
+=======
+                Icon(
+                    imageVector = iconForCategory(item.key),
+                    contentDescription = item.label,
+                    tint = if (isSelected) statusColor else MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(16.dp)
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(3.dp)
+                ) {
+                    Surface(
+                        color = statusColor.copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(4.dp)
+                    ) {
+                        Text(
+                            text = statusBadgeText,
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.sp),
+                            color = statusColor,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                        )
+                    }
+                    Surface(
+                        onClick = onEditLimit,
+                        shape = CircleShape,
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f),
+                        modifier = Modifier
+                            .size(20.dp)
+                            .testTag("edit_limit_${item.key}")
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = Icons.Default.Tune,
+                                contentDescription = "Atur Limit ${item.label}",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(11.dp)
+                            )
+                        }
+                    }
+                }
+            }
+
+            Column {
+                Text(
+                    text = item.label,
+                    style = MaterialTheme.typography.labelLarge.copy(fontSize = 11.5.sp),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = item.subtitle,
+                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.8.sp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+
+            Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                LinearProgressIndicator(
+                    progress = { if (limitAmt > 0L) ratio.coerceIn(0f, 1f) else 0f },
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     color = statusColor,
                     trackColor = MaterialTheme.colorScheme.surfaceVariant,
                     modifier = Modifier
                         .fillMaxWidth()
+<<<<<<< HEAD
                         .height(6.dp)
+=======
+                        .height(4.dp)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                         .clip(RoundedCornerShape(50))
                 )
                 Text(
                     text = if (limitAmt > 0L) {
+<<<<<<< HEAD
                         if (spentAmount <= limitAmt) {
                             "Sisa: ${ArusKasViewModel.formatCompactRupiah(remainingAmt)}"
                         } else {
@@ -2473,6 +3170,14 @@ private fun Expense3x3Tile(
                     },
                     style = MaterialTheme.typography.labelSmall.copy(fontSize = 7.4.sp),
                     color = if (limitAmt > 0L && spentAmount > limitAmt) CoralExpense else MaterialTheme.colorScheme.onSurfaceVariant,
+=======
+                        "${ArusKasViewModel.formatCompactRupiah(spentAmount).replace("Rp ", "")}/${ArusKasViewModel.formatCompactRupiah(limitAmt).replace("Rp ", "")}"
+                    } else {
+                        "Tanpa Limit"
+                    },
+                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.5.sp),
+                    color = statusColor,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -2547,7 +3252,10 @@ fun CategoryLimitDialog(
                     onValueChange = { input -> limitStr = input.filter { it.isDigit() } },
                     label = { Text("Batas Maksimal Pengeluaran (Rp)") },
                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
+<<<<<<< HEAD
                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier
@@ -4048,7 +4756,10 @@ fun TabunganTargetVisualRadarCard(
                                     onValueChange = { depositAmountStr = it.filter { c -> c.isDigit() } },
                                     label = { Text("Nominal Tabung (Rp)") },
                                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold, color = EmeraldPrimary) },
+<<<<<<< HEAD
                                     visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     singleLine = true,
                                     modifier = Modifier

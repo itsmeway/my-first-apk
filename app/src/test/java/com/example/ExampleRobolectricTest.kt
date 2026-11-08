@@ -51,6 +51,7 @@ class ExampleRobolectricTest {
     assertEquals("Rp 7.000 / Bulan", priceId)
     assertEquals("IDR 7,000 / Month", priceEn)
   }
+<<<<<<< HEAD
 
   @Test
   fun `verify rupiah input formatting with thousands dots and Rp prefix`() {
@@ -112,4 +113,6 @@ class ExampleRobolectricTest {
     val limitHelp = com.example.ui.FeatureHelpDatabase.KATEGORI_LIMIT
     org.junit.Assert.assertTrue(limitHelp.title.contains("Limit"))
   }
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 }

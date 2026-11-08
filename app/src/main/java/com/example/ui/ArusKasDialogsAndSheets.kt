@@ -612,8 +612,11 @@ private fun WalletEditorForm(
                 value = balanceStr,
                 onValueChange = { input -> balanceStr = input.filter { it.isDigit() || it == '-' } },
                 label = { Text("Saldo Saat Ini (Rp)") },
+<<<<<<< HEAD
                 prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
                 visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
@@ -720,8 +723,11 @@ fun FirstTimeSetupDialog(
                         value = balances[preset.id] ?: "0",
                         onValueChange = { v -> balances[preset.id] = v.filter { it.isDigit() } },
                         label = { Text("Saldo ${preset.name} (Rp)") },
+<<<<<<< HEAD
                         prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
                         visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
@@ -746,8 +752,11 @@ fun FirstTimeSetupDialog(
                         value = goalTarget,
                         onValueChange = { goalTarget = it.filter { c -> c.isDigit() } },
                         label = { Text("Target (Rp)") },
+<<<<<<< HEAD
                         prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
                         visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         modifier = Modifier.weight(1f)
@@ -756,8 +765,11 @@ fun FirstTimeSetupDialog(
                         value = goalDaily,
                         onValueChange = { goalDaily = it.filter { c -> c.isDigit() } },
                         label = { Text("Nabung/Hari") },
+<<<<<<< HEAD
                         prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
                         visualTransformation = RupiahThousandsVisualTransformation(),
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         modifier = Modifier.weight(1f)

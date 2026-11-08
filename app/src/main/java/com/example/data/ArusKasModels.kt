@@ -73,6 +73,7 @@ data class EmergencyFundConfig(
     val storagePlaceNote: String = "Rekening / Kantong Terpisah (Jangan dicampur uang harian)"
 )
 
+<<<<<<< HEAD
 /**
  * Item Tagihan Wajib dengan Jatuh Tempo, Siklus Habis/Beli Lagi, dan Ceklist 3 Status:
  * - UNPAID: Belum Lunas (Rp 0)
@@ -133,70 +134,138 @@ object PresetCategories {
         frequencyTag = "DARURAT",
         type = "EXPENSE",
         defaultNoteHint = "Keperluan darurat mendesak (ban bocor, obat, dll)...",
+=======
+object PresetCategories {
+    // Kategori Khusus Pengeluaran Darurat (Diinput di tempat yang sama, tapi limit & saldonya tampil khusus di bawah Total Saldo)
+    val emergencyExpenseCategory = QuickCategoryItem(
+        key = "pakai_darurat",
+        label = "Uang Darurat",
+        subtitle = "Potong Saldo Darurat Terpisah",
+        frequencyTag = "DARURAT",
+        type = "EXPENSE",
+        defaultNoteHint = "Keperluan darurat mendesak (ban bocor, obat darurat, dll)...",
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         defaultLimitAmount = 500_000L,
         defaultLimitPeriod = "BULANAN"
     )
 
+<<<<<<< HEAD
     // 6 Pos Pengeluaran Utama Kehidupan Sehari-hari
+=======
+    // 6 Pos Pengeluaran Utama & Rem Bulanan
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     val expenseGrid3x3 = listOf(
         QuickCategoryItem(
             key = "tagihan_bulanan",
             label = "Tagihan Wajib",
+<<<<<<< HEAD
             subtitle = "Kosan, Kuota, Listrik",
             frequencyTag = "CEKLIST",
             type = "EXPENSE",
             defaultNoteHint = "Cth: Bayar kosan, paket kuota, token listrik, WiFi...",
             defaultLimitAmount = 1_350_000L,
+=======
+            subtitle = "Kosan, Listrik, WiFi & Kuota",
+            frequencyTag = "WAJIB",
+            type = "EXPENSE",
+            defaultNoteHint = "Cth: Token listrik, WiFi, kosan, paket data...",
+            defaultLimitAmount = 1_500_000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             defaultLimitPeriod = "BULANAN"
         ),
         QuickCategoryItem(
             key = "kebutuhan_pokok",
+<<<<<<< HEAD
             label = "Bensin & Harian",
             subtitle = "Makan, Bensin, Rokok, Air",
             frequencyTag = "FLEKSIBEL",
             type = "EXPENSE",
             defaultNoteHint = "Cth: Isi bensin, beli rokok, makan siang, air galon...",
             defaultLimitAmount = 1_800_000L,
+=======
+            label = "Amunisi Harian",
+            subtitle = "Makan, Bensin, Dapur & Air",
+            frequencyTag = "HARIAN",
+            type = "EXPENSE",
+            defaultNoteHint = "Cth: Bensin motor, makan siang, galon, sabun...",
+            defaultLimitAmount = 2_000_000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             defaultLimitPeriod = "BULANAN"
         ),
         QuickCategoryItem(
             key = "rawat_diri",
+<<<<<<< HEAD
             label = "Rawat Diri",
             subtitle = "Sabun, Barber, Skincare",
             frequencyTag = "FLEKSIBEL",
             type = "EXPENSE",
             defaultNoteHint = "Cth: Sabun, sampo, potong rambut, skincare, laundry...",
             defaultLimitAmount = 400_000L,
+=======
+            label = "Self-Care & Sehat",
+            subtitle = "Skincare, Barber & Vitamin",
+            frequencyTag = "RAWAT DIRI",
+            type = "EXPENSE",
+            defaultNoteHint = "Cth: Beli skincare, potong rambut, vitamin...",
+            defaultLimitAmount = 500_000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             defaultLimitPeriod = "BULANAN"
         ),
         QuickCategoryItem(
             key = "gaya_hidup",
+<<<<<<< HEAD
             label = "Jajan & Ngopi",
             subtitle = "Kopi, Cemilan, Nongkrong",
             frequencyTag = "FLEKSIBEL",
             type = "EXPENSE",
             defaultNoteHint = "Cth: Kopi, gorengan, seblak, nongkrong, jajan...",
             defaultLimitAmount = 600_000L,
+=======
+            label = "Jajan & Healing",
+            subtitle = "Kopi, Nongkrong & Hiburan",
+            frequencyTag = "BEBAS",
+            type = "EXPENSE",
+            defaultNoteHint = "Cth: Es kopi susu, seblak, nonton, traktir doi...",
+            defaultLimitAmount = 750_000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             defaultLimitPeriod = "BULANAN"
         ),
         QuickCategoryItem(
             key = "sosial_darurat",
+<<<<<<< HEAD
             label = "Sosial & Ortu",
             subtitle = "Ortu, Kondangan, Patungan",
             frequencyTag = "FLEKSIBEL",
             type = "EXPENSE",
             defaultNoteHint = "Cth: Kasih ortu, kondangan, patungan temen...",
             defaultLimitAmount = 400_000L,
+=======
+            label = "Sosial & Berbagi",
+            subtitle = "Ortu, Kondangan & Traktir",
+            frequencyTag = "SOSIAL",
+            type = "EXPENSE",
+            defaultNoteHint = "Cth: Kasih ortu, amplop kondangan, patungan...",
+            defaultLimitAmount = 500_000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             defaultLimitPeriod = "BULANAN"
         ),
         QuickCategoryItem(
             key = "modal_produktif",
+<<<<<<< HEAD
             label = "Servis & Kerja",
             subtitle = "Oli, Servis, Modal Kerja",
             frequencyTag = "PRODUKTIF",
             type = "EXPENSE",
             defaultNoteHint = "Cth: Ganti oli motor, servis, alat kerja, modal usaha...",
             defaultLimitAmount = 500_000L,
+=======
+            label = "Modal & Kerja",
+            subtitle = "Servis, Usaha & Upgrade Diri",
+            frequencyTag = "PRODUKTIF",
+            type = "EXPENSE",
+            defaultNoteHint = "Cth: Ganti oli ojol, bahan dagang, alat kerja...",
+            defaultLimitAmount = 1_000_000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             defaultLimitPeriod = "BULANAN"
         )
     )
@@ -209,6 +278,7 @@ object PresetCategories {
         )
     }
 
+<<<<<<< HEAD
     val defaultMandatoryBills = listOf(
         MandatoryBillItem(
             id = "bill_kosan",
@@ -290,38 +360,65 @@ object PresetCategories {
     )
 
     // Minimalist Income Pills
+=======
+    // Minimalist Income Pills (Smaller than Expense, as requested)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     val incomeQuickPills = listOf(
         QuickCategoryItem(
             key = "gaji_bulanan",
             label = "Gaji Utama",
+<<<<<<< HEAD
             subtitle = "",
+=======
+            subtitle = "Pemasukan Pasti",
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             frequencyTag = "PEMASUKAN",
             type = "INCOME",
             defaultNoteHint = "Gaji bulanan / bonus kantor..."
         ),
         QuickCategoryItem(
             key = "ngojek_online",
+<<<<<<< HEAD
             label = "Ngojek / Harian",
             subtitle = "",
             frequencyTag = "PEMASUKAN",
             type = "INCOME",
             defaultNoteHint = "Pendapatan harian / ojol / tip..."
+=======
+            label = "Ngojek Online",
+            subtitle = "Cairan Harian",
+            frequencyTag = "PEMASUKAN",
+            type = "INCOME",
+            defaultNoteHint = "Tarik saldo ojol / tip penumpang..."
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         ),
         QuickCategoryItem(
             key = "hasil_usaha",
             label = "Untung Usaha",
+<<<<<<< HEAD
             subtitle = "",
+=======
+            subtitle = "Omset Dagang",
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             frequencyTag = "PEMASUKAN",
             type = "INCOME",
             defaultNoteHint = "Penjualan usaha hari ini..."
         ),
         QuickCategoryItem(
             key = "rejeki_lain",
+<<<<<<< HEAD
             label = "Transfer / Bonus",
             subtitle = "",
             frequencyTag = "PEMASUKAN",
             type = "INCOME",
             defaultNoteHint = "Cashback, kiriman, bonus..."
+=======
+            label = "Rejeki / Transfer",
+            subtitle = "Pemasukan Lain",
+            frequencyTag = "PEMASUKAN",
+            type = "INCOME",
+            defaultNoteHint = "Cashback, dikasih saudara, dll..."
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         )
     )
 
@@ -330,7 +427,11 @@ object PresetCategories {
             id = "wallet_bca",
             name = "Bank BCA",
             walletType = "BANK",
+<<<<<<< HEAD
             balance = 3_200_000L,
+=======
+            balance = 4500000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             colorHex = "#0066AE",
             iconKey = "bank_bca"
         ),
@@ -338,7 +439,11 @@ object PresetCategories {
             id = "wallet_mas",
             name = "Bank Mas",
             walletType = "BANK",
+<<<<<<< HEAD
             balance = 1_500_000L,
+=======
+            balance = 2150000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             colorHex = "#F59E0B",
             iconKey = "bank_mas"
         ),
@@ -346,7 +451,11 @@ object PresetCategories {
             id = "wallet_dana",
             name = "DANA",
             walletType = "EWALLET",
+<<<<<<< HEAD
             balance = 350_000L,
+=======
+            balance = 420000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             colorHex = "#118EEA",
             iconKey = "ewallet_dana"
         ),
@@ -354,7 +463,11 @@ object PresetCategories {
             id = "wallet_shopeepay",
             name = "ShopeePay",
             walletType = "EWALLET",
+<<<<<<< HEAD
             balance = 250_000L,
+=======
+            balance = 310000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             colorHex = "#EE4D2D",
             iconKey = "ewallet_shopee"
         ),
@@ -362,7 +475,11 @@ object PresetCategories {
             id = "wallet_gopay",
             name = "GoPay",
             walletType = "EWALLET",
+<<<<<<< HEAD
             balance = 400_000L,
+=======
+            balance = 580000L,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             colorHex = "#00AED6",
             iconKey = "ewallet_gopay"
         )

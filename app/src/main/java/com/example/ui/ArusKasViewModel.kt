@@ -8,11 +8,17 @@ import com.example.data.AppSettings
 import com.example.data.ArusKasRepository
 import com.example.data.CategoryLimitConfig
 import com.example.data.EmergencyFundConfig
+<<<<<<< HEAD
 import com.example.data.MandatoryBillItem
 import com.example.data.PresetCategories
 import com.example.data.SavingsGoal
 import com.example.data.TransactionRecord
 import com.example.data.UserFinancialProfile
+=======
+import com.example.data.PresetCategories
+import com.example.data.SavingsGoal
+import com.example.data.TransactionRecord
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 import com.example.data.Wallet
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
@@ -67,6 +73,7 @@ class ArusKasViewModel(
 
     private val guruSchema = Schema.obj(
         properties = mapOf(
+<<<<<<< HEAD
             "statusBadge" to Schema.string(description = "Label notifikasi pengingat singkat 2-4 kata huruf kapital"),
             "colorLevel" to Schema.string(description = "Pilih satu: GREEN, YELLOW, RED, atau BLUE"),
             "saldoCritique" to Schema.string(description = "1 kalimat singkat kondisi saldo"),
@@ -74,6 +81,15 @@ class ArusKasViewModel(
             "categoryCritique" to Schema.string(description = "1 kalimat kritik kategori"),
             "teguran" to Schema.string(description = "Teguran jujur santai"),
             "motivasi" to Schema.string(description = "Kalimat penyemangat"),
+=======
+            "statusBadge" to Schema.string(description = "Label notifikasi pengingat singkat 2-4 kata huruf kapital gaya bestie/gaul, contoh: REM DULU BESTIE!, DOMPET LAGI SEGER, ALARM BOCOR HALUS"),
+            "colorLevel" to Schema.string(description = "Pilih satu: GREEN (aman/sehat), YELLOW (waspada/hampir limit), RED (boros/lewat limit/kritis), atau BLUE (fokus target)"),
+            "saldoCritique" to Schema.string(description = "1 kalimat singkat gaya temen deket/gaul mengomentari kondisi Total Saldo Siap Pakai vs Tabungan Target & Darurat"),
+            "nominalBoxAnalysis" to Schema.string(description = "Analisis keuangan profesional namun disampaikan dengan bahasa gaul/temen deket + sedikit becandaan segar (2 kalimat padat) untuk kotak persegi panjang di bawah masukan nominal"),
+            "categoryCritique" to Schema.string(description = "1 kalimat kritik/saran/pengingat bahasa gaul tentang kategori pengeluaran/pemasukan pengguna saat ini"),
+            "teguran" to Schema.string(description = "Teguran jujur santai ala sahabat dekat"),
+            "motivasi" to Schema.string(description = "Kalimat penyemangat mengejar tabungan target"),
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             "langkahKonkret" to Schema.string(description = "1 saran angka praktis hari ini")
         )
     )
@@ -99,18 +115,25 @@ class ArusKasViewModel(
                 targetAmount = 10_000_000L,
                 savedAmount = 1_250_000L,
                 dailyRecommendation = 40_000L,
+<<<<<<< HEAD
                 note = "Sisihkan rutin dari penghasilan",
+=======
+                note = "Sisihkan rutin dari gaji, ngojek online & usaha",
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 iconKey = "laptop"
             )
         )
     )
 
+<<<<<<< HEAD
     private val _mandatoryBills = MutableStateFlow(PresetCategories.defaultMandatoryBills)
     val mandatoryBills: StateFlow<List<MandatoryBillItem>> = _mandatoryBills.asStateFlow()
 
     private val _userProfile = MutableStateFlow(UserFinancialProfile())
     val userProfile: StateFlow<UserFinancialProfile> = _userProfile.asStateFlow()
 
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     val walletsState: StateFlow<UiState<List<Wallet>>> = (
         if (currentUserId != null) {
             repository.observeWallets(currentUserId)
@@ -209,6 +232,7 @@ class ArusKasViewModel(
         _actionFeedback.value = null
     }
 
+<<<<<<< HEAD
     /**
      * Mengubah status pembayaran Tagihan Wajib (UNPAID -> HALF_PAID -> PAID)
      * dan otomatis menyesuaikan saldo dompet serta pencatatan transaksi.
@@ -381,6 +405,8 @@ class ArusKasViewModel(
         _actionFeedback.value = "Profil Keuangan siap! Limit fleksibel & daftar tagihan wajib sudah disesuaikan otomatis."
     }
 
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     fun updateCategoryLimit(
         categoryKey: String,
         categoryLabel: String,
@@ -402,7 +428,11 @@ class ArusKasViewModel(
         _actionFeedback.value = if (cleanLimit > 0L) {
             "Limit $categoryLabel diatur ke ${formatRupiah(cleanLimit)} ($periodLabel)"
         } else {
+<<<<<<< HEAD
             "Limit target untuk $categoryLabel diatur ke Mode Bebas"
+=======
+            "Limit target untuk $categoryLabel dinonaktifkan"
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         }
     }
 
@@ -492,7 +522,11 @@ class ArusKasViewModel(
                         )
                     }
                 }
+<<<<<<< HEAD
                 _actionFeedback.value = "Dompet & Target Impian siap dipantau!"
+=======
+                _actionFeedback.value = "Dompet (BCA, Bank Mas, DANA, ShopeePay, GoPay) & Target Impian siap dipantau!"
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -522,6 +556,10 @@ class ArusKasViewModel(
             try {
                 val isEmergencySpend = categoryKey == "pakai_darurat"
                 if (isEmergencySpend) {
+<<<<<<< HEAD
+=======
+                    // Deduct from separated Emergency Balance (since Total Saldo was already deducted when Emergency Balance was set aside)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     val currentEm = _emergencyFund.value
                     _emergencyFund.value = currentEm.copy(
                         emergencyBalance = (currentEm.emergencyBalance - amount).coerceAtLeast(0L)
@@ -541,7 +579,11 @@ class ArusKasViewModel(
                     )
                     _localTransactions.value = listOf(newTx) + _localTransactions.value
                     val formatted = formatRupiah(amount)
+<<<<<<< HEAD
                     _actionFeedback.value = "-$formatted dipotong dari Saldo Darurat Terpisah"
+=======
+                    _actionFeedback.value = "-$formatted dipotong dari Saldo Darurat Terpisah (Tercatat di Limit Darurat)"
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 } else {
                     if (currentUserId != null) {
                         repository.recordTransactionAndAdjustWallet(
@@ -854,6 +896,7 @@ class ArusKasViewModel(
 
                 val todayExpenses = transactions.filter { it.type == "EXPENSE" && it.transactionDateMillis >= todayStart }
                 val todayExpenseSum = todayExpenses.sumOf { it.amount }
+<<<<<<< HEAD
                 val monthlyExpenseSum = transactions.filter { it.type == "EXPENSE" && it.transactionDateMillis >= monthStart }.sumOf { it.amount }
                 val monthlyIncomeSum = transactions.filter { it.type == "INCOME" && it.transactionDateMillis >= monthStart }.sumOf { it.amount }
 
@@ -879,6 +922,76 @@ class ArusKasViewModel(
 
                 _guruState.value = GuruAdviceState.Success(
                     statusBadge = json.optString("statusBadge", "STATUS KE-$currentSeed"),
+=======
+                val mendadakExpenses = transactions.filter {
+                    it.type == "EXPENSE" && (it.frequencyTag == "MENDADAK" || it.categoryKey == "gaya_hidup_bebas") && it.transactionDateMillis >= monthStart
+                }
+                val mendadakSum = mendadakExpenses.sumOf { it.amount }
+                val monthlyExpenseSum = transactions.filter { it.type == "EXPENSE" && it.transactionDateMillis >= monthStart }.sumOf { it.amount }
+                val monthlyIncomeSum = transactions.filter { it.type == "INCOME" && it.transactionDateMillis >= monthStart }.sumOf { it.amount }
+
+                val goalsSummary = if (goals.isEmpty()) {
+                    "Belum ada tabungan target spesifik."
+                } else {
+                    goals.joinToString("; ") {
+                        "${it.title} (Terkumpul ${formatRupiah(it.savedAmount)} dari ${formatRupiah(it.targetAmount)}, rekomendasi ${formatRupiah(it.dailyRecommendation)}/hari)"
+                    }
+                }
+
+                val recentNotes = transactions.take(5).joinToString(" | ") {
+                    "${it.type} ${formatRupiah(it.amount)} (${it.categoryLabel} via ${it.walletName}: '${it.note}')"
+                }
+
+                val styleAngles = listOf(
+                    "Gaya temen nongkrong deket yang perhatian tapi suka ngeledek halus kalau boros",
+                    "Gaya sahabat karib yang paham banget perjuangan cari duit (gaji, ngojek, usaha) sambil kasih jokes receh",
+                    "Gaya bestie finansial yang jujur blak-blakan tapi tetep bikin senyum dan semangat nabung",
+                    "Gaya bro/bestie tongkrongan yang ngingetin masa depan biar nggak boncos di tanggal tua"
+                )
+                val chosenAngle = styleAngles[currentSeed % styleAngles.size]
+
+                val prompt = """
+                    Lo adalah temen nongkrong deket anak Gen Z Indonesia yang ngerti banget keuangan dan peduli sama keseharian temen lo.
+                    JANGAN PERNAH pake bahasa baku (jangan pake kata "Anda", "Kamu", "Sebaiknya", "Telah"). Wajib pake bahasa sehari-hari gaul Gen Z ("woy", "lo/gue", "cuy", "bro", "bestie", "jujurly", "boncos").
+                    Contoh gaya bicara yang wajib lo tiru: "woy, pengeluaran jajan lo kebanyakan bulan ini, udah setara minum kopi 15 cup, sehat dikit lah dompet sama lambung lo!"
+                    Variasi sesi ke-$currentSeed ($chosenAngle).
+
+                    Data keuangan real-time temen lo:
+                    - Saldo Siap Pakai: ${formatRupiah(totalBalance)} ($walletBreakdown)
+                    - Tabungan Target Terpisah: ${formatRupiah(totalGoalSaved)} ($goalsSummary)
+                    - Simpanan Darurat Terpisah: ${formatRupiah(emergencyBalance)}
+                    - Pengeluaran Hari Ini: ${formatRupiah(todayExpenseSum)} (${todayExpenses.size} transaksi)
+                    - Pengeluaran Bulan Ini: ${formatRupiah(monthlyExpenseSum)} vs Pemasukan Bulan Ini: ${formatRupiah(monthlyIncomeSum)}
+                    - Pengeluaran Gaya Hidup / Jajan Bulan Ini: ${formatRupiah(mendadakSum)}
+                    - 5 Transaksi Terakhir: $recentNotes
+
+                    Hasilkan JSON sesuai skema:
+                    - statusBadge: 2-3 kata kapital singkat.
+                    - colorLevel: "GREEN" (aman), "YELLOW" (waspada/rem dikit), "RED" (boros/boncos), "BLUE" (fokus target).
+                    - nominalBoxAnalysis: 1-2 kalimat bahasa gaul anak Gen Z ("woy, lo...") yang mengkritik/mengingatkan/memotivasi keseharian pengguna berdasarkan angka di atas (misal konversi ke cup kopi/seblak/bensin/ngojek/target laptop).
+                    - saldoCritique, categoryCritique, teguran, motivasi, langkahKonkret: isi singkat gaya gaul Gen Z.
+                """.trimIndent()
+
+                val response = try {
+                    withTimeout(30_000L) {
+                        guruModel.generateContent(prompt)
+                    }
+                } catch (firstTimeout: TimeoutCancellationException) {
+                    Log.w(TAG, "First Bestie AI attempt timed out at 30s, retrying once...")
+                    withTimeout(45_000L) {
+                        guruModel.generateContent(prompt)
+                    }
+                }
+                val jsonString = response.text ?: throw IllegalStateException("Respons AI kosong.")
+                val json = JSONObject(jsonString)
+
+                val teguranText = json.optString("teguran", "Jangan gatel checkout mulu bestie, cek lagi arus kasmu hari ini!")
+                val motivasiText = json.optString("motivasi", "Dikit demi sedikit lama-lama kebeli juga targetmu bro!")
+                val langkahText = json.optString("langkahKonkret", "Sisihkan minimal Rp 25.000 hari ini ke Tabungan Target.")
+
+                _guruState.value = GuruAdviceState.Success(
+                    statusBadge = json.optString("statusBadge", "PENGINGAT BESTIE KE-$currentSeed"),
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     teguran = teguranText,
                     motivasi = motivasiText,
                     langkahKonkret = langkahText,
@@ -887,11 +1000,24 @@ class ArusKasViewModel(
                     nominalBoxAnalysis = json.optString("nominalBoxAnalysis", "$teguranText $langkahText"),
                     categoryCritique = json.optString("categoryCritique", motivasiText)
                 )
+<<<<<<< HEAD
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 Log.w(TAG, "Evaluation fallback used: ${e.message}")
                 _guruState.value = GuruAdviceState.Error("Mode Evaluasi Lokal Aktif")
+=======
+            } catch (e: TimeoutCancellationException) {
+                Log.e(TAG, "Bestie evaluation timed out", e)
+                _guruState.value = GuruAdviceState.Error("Analisis AI lagi antre, menampilkan analisis instan bestie.")
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Log.e(TAG, "Bestie evaluation failed", e)
+                _guruState.value = GuruAdviceState.Error(
+                    e.localizedMessage ?: "Menampilkan analisis instan bestie."
+                )
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             }
         }
     }
@@ -949,6 +1075,7 @@ class ArusKasViewModel(
             return cal.timeInMillis
         }
 
+<<<<<<< HEAD
         fun getRemainingDaysInCurrentPeriod(period: String): Int {
             val cal = Calendar.getInstance()
             return when (period) {
@@ -981,11 +1108,17 @@ class ArusKasViewModel(
             return remainingQuota / remainingDays.toLong()
         }
 
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         fun periodDisplayLabel(period: String): String {
             return when (period) {
                 "HARIAN" -> "Per Hari"
                 "MINGGUAN" -> "Per Minggu"
+<<<<<<< HEAD
                 "BEBAS" -> "Bebas Fleksibel"
+=======
+                "BEBAS" -> "Target Bebas"
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 else -> "Per Bulan"
             }
         }
@@ -993,6 +1126,7 @@ class ArusKasViewModel(
         fun calculateSpentForCategoryLimit(
             categoryKey: String,
             period: String,
+<<<<<<< HEAD
             transactions: List<TransactionRecord>,
             mandatoryBills: List<MandatoryBillItem> = emptyList()
         ): Long {
@@ -1009,6 +1143,10 @@ class ArusKasViewModel(
                     .sumOf { it.amount }
                 return paidFromChecklist + manualExtraTx
             }
+=======
+            transactions: List<TransactionRecord>
+        ): Long {
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             val startMillis = when (period) {
                 "HARIAN" -> getStartOfDayMillis()
                 "MINGGUAN" -> getStartOfWeekMillis()

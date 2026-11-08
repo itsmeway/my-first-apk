@@ -35,12 +35,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+<<<<<<< HEAD
+=======
+import androidx.credentials.CredentialManager
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+<<<<<<< HEAD
 import kotlinx.coroutines.launch
+=======
+import com.example.auth.attemptAutoSignIn
+import com.example.auth.authStateFlow
+import kotlinx.coroutines.launch
+import com.example.auth.configureAppCheck
+import com.example.auth.signOutUser
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 import com.example.data.AppLocalization
 import com.example.data.AppSettings
 import com.example.data.ArusKasRepository
@@ -50,8 +62,13 @@ import com.example.data.TransactionRecord
 import com.example.data.Wallet
 import com.example.ui.AppSettingsBottomSheet
 import com.example.ui.ArusKasViewModel
+<<<<<<< HEAD
 import com.example.ui.BerandaExpenseDashboard
 import com.example.ui.FinancialProfileOnboardingDialog
+=======
+import com.example.ui.AuthModalBottomSheet
+import com.example.ui.BerandaExpenseDashboard
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 import com.example.ui.FirstTimeSetupDialog
 import com.example.ui.GuruFinancialMentorScreen
 import com.example.ui.ImpianSavingsScreen
@@ -62,12 +79,24 @@ import com.example.ui.ArusKasProPaywallDialog
 import com.example.ui.theme.EmeraldPrimary
 import com.example.ui.theme.GoldAccent
 import com.example.ui.theme.MyApplicationTheme
+<<<<<<< HEAD
+=======
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+<<<<<<< HEAD
+=======
+        // STEP 1: Mandatory App Check configuration with launch intent before any UI or Firebase calls
+        configureAppCheck(this, intent)
+
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
@@ -83,6 +112,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+<<<<<<< HEAD
 fun ArusKasAppNavigation() {
     MainArusKasScreen()
 }
@@ -91,6 +121,44 @@ fun ArusKasAppNavigation() {
 fun MainArusKasScreen() {
     val viewModel: ArusKasViewModel = viewModel(
         key = "local_offline_dashboard",
+=======
+fun ArusKasAppNavigation(auth: FirebaseAuth = Firebase.auth) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val credentialManager = remember { CredentialManager.create(context) }
+    val currentUser by auth.authStateFlow().collectAsStateWithLifecycle(initialValue = auth.currentUser)
+
+    LaunchedEffect(Unit) {
+        if (auth.currentUser == null) {
+            attemptAutoSignIn(
+                context = context,
+                credentialManager = credentialManager,
+                onAuthSuccess = {},
+                onUnauthenticated = {},
+                scope = scope
+            )
+        }
+    }
+
+    val userUid = currentUser?.uid
+    key(userUid ?: "guest_local_dashboard") {
+        MainArusKasScreen(
+            currentUserId = userUid,
+            onSignOut = {
+                signOutUser(credentialManager, scope)
+            }
+        )
+    }
+}
+
+@Composable
+fun MainArusKasScreen(
+    currentUserId: String?,
+    onSignOut: () -> Unit
+) {
+    val viewModel: ArusKasViewModel = viewModel(
+        key = currentUserId ?: "guest_local_dashboard",
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
         factory = viewModelFactory {
             initializer {
                 val app = checkNotNull(this[APPLICATION_KEY]) {
@@ -98,7 +166,11 @@ fun MainArusKasScreen() {
                 }
                 val databaseId = app.getString(R.string.firestore_database_id)
                 val db = FirebaseFirestore.getInstance(databaseId)
+<<<<<<< HEAD
                 ArusKasViewModel(ArusKasRepository(db), null)
+=======
+                ArusKasViewModel(ArusKasRepository(db), currentUserId)
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
             }
         }
     )
@@ -108,8 +180,11 @@ fun MainArusKasScreen() {
     val goalsUiState by viewModel.goalsState.collectAsStateWithLifecycle()
     val categoryLimits by viewModel.categoryLimits.collectAsStateWithLifecycle()
     val emergencyFund by viewModel.emergencyFund.collectAsStateWithLifecycle()
+<<<<<<< HEAD
     val mandatoryBills by viewModel.mandatoryBills.collectAsStateWithLifecycle()
     val userProfile by viewModel.userProfile.collectAsStateWithLifecycle()
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     val guruState by viewModel.guruState.collectAsStateWithLifecycle()
     val sessionSeed by viewModel.sessionSeed.collectAsStateWithLifecycle()
     val isSubmitting by viewModel.isSubmitting.collectAsStateWithLifecycle()
@@ -122,11 +197,17 @@ fun MainArusKasScreen() {
 
     var showWalletsSheet by remember { mutableStateOf(false) }
     var showStarterDialog by remember { mutableStateOf(false) }
+<<<<<<< HEAD
     var showSettingsSheet by remember { mutableStateOf(false) }
     var showUserGuideDialog by remember { mutableStateOf(false) }
     var showFinancialProfileDialog by remember(userProfile.isCompleted) {
         mutableStateOf(!userProfile.isCompleted)
     }
+=======
+    var showSignInSheet by remember { mutableStateOf(false) }
+    var showSettingsSheet by remember { mutableStateOf(false) }
+    var showUserGuideDialog by remember { mutableStateOf(!appSettings.hasSeenUserGuide) }
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     var showPaywallDialog by remember { mutableStateOf(false) }
     var hasTriggeredOpenAnalysis by remember { mutableStateOf(false) }
 
@@ -172,6 +253,12 @@ fun MainArusKasScreen() {
                 wallets = wallets,
                 transactions = transactions,
                 isSubmitting = isSubmitting,
+<<<<<<< HEAD
+=======
+                isSignedIn = currentUserId != null,
+                onOpenSignInSheet = { showSignInSheet = true },
+                onSignOut = onSignOut,
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 guruState = guruState,
                 sessionSeed = sessionSeed,
                 onRefreshBestieAnalysis = {
@@ -201,6 +288,7 @@ fun MainArusKasScreen() {
                 onDeleteGoal = { goal ->
                     viewModel.deleteGoal(goal)
                 },
+<<<<<<< HEAD
                 mandatoryBills = mandatoryBills,
                 onUpdateMandatoryBillStatus = { bill, newStatus, wallet ->
                     viewModel.updateMandatoryBillStatus(bill, newStatus, wallet)
@@ -221,6 +309,8 @@ fun MainArusKasScreen() {
                 },
                 userProfile = userProfile,
                 onOpenFinancialProfileWizard = { showFinancialProfileDialog = true },
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                 onOpenWalletsSheet = { showWalletsSheet = true },
                 onOpenStarterSetup = { showStarterDialog = true },
                 onOpenUserGuide = { showUserGuideDialog = true },
@@ -245,6 +335,7 @@ fun MainArusKasScreen() {
         }
     }
 
+<<<<<<< HEAD
     if (showFinancialProfileDialog) {
         FinancialProfileOnboardingDialog(
             initialProfile = userProfile,
@@ -262,6 +353,8 @@ fun MainArusKasScreen() {
         )
     }
 
+=======
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     if (showWalletsSheet) {
         WalletsBreakdownBottomSheet(
             wallets = wallets,
@@ -298,6 +391,16 @@ fun MainArusKasScreen() {
         )
     }
 
+<<<<<<< HEAD
+=======
+    if (showSignInSheet) {
+        AuthModalBottomSheet(
+            onDismiss = { showSignInSheet = false },
+            onAuthSuccess = { showSignInSheet = false }
+        )
+    }
+
+>>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
     if (showSettingsSheet) {
         val currentContext = LocalContext.current
         AppSettingsBottomSheet(
