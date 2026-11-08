@@ -15,17 +15,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Generate Gradle Wrapper
+      - name: Download and Setup Gradle
         run: |
-          sudo apt-get update
-          sudo apt-get install -y gradle
-          gradle wrapper
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+          wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
+          unzip -q gradle-8.5-bin.zip
+          echo "$PWD/gradle-8.5/bin" >> $GITHUB_PATH
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug
+        run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
