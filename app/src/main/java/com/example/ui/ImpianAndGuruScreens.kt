@@ -477,11 +477,8 @@ private fun AllocateGoalDialog(
                     value = amountStr,
                     onValueChange = { amountStr = it.filter { c -> c.isDigit() } },
                     label = { Text("Nominal Setor (Rp)") },
-<<<<<<< HEAD
                     prefix = { Text("Rp ", fontWeight = FontWeight.Bold) },
                     visualTransformation = RupiahThousandsVisualTransformation(),
-=======
->>>>>>> fdaa85abd0848d84759f2e12b620d84522584107
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
