@@ -1,3 +1,4 @@
+
 name: Build Android APK
 
 on:
@@ -15,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup JDK
         uses: actions/setup-java@v5
@@ -24,16 +25,31 @@ jobs:
           java-version: '17'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '9.3.1'
 
-      - name: Grant permission
-        run: chmod +x gradlew
+      - name: Prepare Debug Keystore
+        run: |
+          if [ ! -f debug.keystore ]; then
+            keytool -genkeypair -v \
+              -keystore debug.keystore \
+              -storepass android \
+              -alias androiddebugkey \
+              -keypass android \
+              -dname "CN=Android Debug,O=Android,C=US" \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000
+          fi
 
       - name: Build APK
-        run: ./gradlew assembleDebug
+        run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: DompetQu-APK
           path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          
